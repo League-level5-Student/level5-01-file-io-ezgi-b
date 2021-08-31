@@ -20,4 +20,25 @@ public class FileEncryptor {
 	 * Create a program that takes a message and a key from the user.
 	 * Use the key to shift each letter in the users input and save the final result to a file.
 	 */
+	private int key;
+	public FileEncryptor(int key) {
+		this.key = key;
+	}
+	
+	public char shiftUsingKey(char c) {
+		if(c >= 65 && c<=90) {
+			c+=key;
+			if(c>90) {
+				int i = c - 90;
+				c = 64 + i;
+			}
+		}else if(c >= 97 && c<=122) {
+			c+=key;
+			if(c>122) {
+				int i = c - 122;
+				c = 96 + i;
+			}
+		}
+		return c;
+	}
 }
