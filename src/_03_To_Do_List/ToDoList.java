@@ -81,6 +81,7 @@ public class ToDoList implements ActionListener {
 				index ++;
 			}
 			JOptionPane.showMessageDialog(null, s);
+			
 		}
 		
 	}
