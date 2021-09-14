@@ -1,5 +1,10 @@
 package _02_File_Encrypt_Decrypt;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
+import javax.swing.JOptionPane;
+
 public class FileEncryptor {
 	/*
 	 * Encryption is the process of encoding a message or information
@@ -20,25 +25,52 @@ public class FileEncryptor {
 	 * Create a program that takes a message and a key from the user.
 	 * Use the key to shift each letter in the users input and save the final result to a file.
 	 */
+	private String message;
 	private int key;
-	public FileEncryptor(int key) {
-		this.key = key;
+	
+	
+	public FileEncryptor() {
+		
+		message = JOptionPane.showInputDialog("Enter a message.");
+		key = Integer.parseInt(JOptionPane.showInputDialog("Enter a key."));
+		String s = "";
+		for(String c: message.split("")) {
+			char ch = c.charAt(0);
+			s+=shiftUsingKey(ch);
+		}
+		
+		try {
+			FileWriter fw = new FileWriter("src/_02_File_Encrypt_Decrypt/EncryptedText", true);
+			fw.write(s);
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
+	
 	public char shiftUsingKey(char c) {
-		if(c >= 65 && c<=90) {
-			c+=key;
-			if(c>90) {
-				int i = c - 90;
-				c = 64 + i;
+		int cee = (int)c;
+		if(cee >= 65 && cee<=90) {
+			cee+=key;
+			if(cee>90) {
+				int i = cee - 90;
+				cee = 64 + i;
 			}
-		}else if(c >= 97 && c<=122) {
-			c+=key;
-			if(c>122) {
-				int i = c - 122;
-				c = 96 + i;
+		}else if(cee >= 97 && cee<=122) {
+			cee+=key;
+			if(cee>122) {
+				int i = cee - 122;
+				cee = 96 + i;
 			}
 		}
-		return c;
+		return (char) cee;
+	}
+	
+	
+	public static void main(String[] args) {
+		FileEncryptor fE = new FileEncryptor();
 	}
 }
